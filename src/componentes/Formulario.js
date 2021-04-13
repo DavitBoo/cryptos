@@ -30,7 +30,7 @@ const Formulario = () => {
     ]
 
     //utilizar hook, useMoneda
-    const [ moneda, SelectMonedas, actualizarState] = useMoneda('Elige moneda', "", MONEDAS);
+    const [ moneda, SelectMonedas] = useMoneda('Elige moneda', "", MONEDAS); //se quita actualizarState, porque ya va a estar en el Hoock useMoneda
 
     return ( 
         <form>
