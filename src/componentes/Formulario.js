@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import useMoneda from '../hooks/useMoneda';
+import useCriptomoneda from '../hooks/useCriptomoneda';
+
 
 const Boton = styled.input`
     margin-top: 20px;
@@ -32,11 +34,16 @@ const Formulario = () => {
     //utilizar hook, useMoneda
     const [ moneda, SelectMonedas] = useMoneda('Elige moneda', "", MONEDAS); //se quita actualizarState, porque ya va a estar en el Hoock useMoneda
 
+    //utilziar hook, useCriptomoneda
+    const[criptomoneda, SelecCripto] = useCriptomoneda('Elige Criptomoneda', '');
+
     return ( 
         <form>
-            <SelectMonedas
+            Sele
 
-            />
+            <SelectMonedas/>
+            <SelecCripto/>
+
             <Boton
                 type="submit"
                 value="Calcular"
