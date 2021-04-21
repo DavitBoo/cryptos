@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import styled from '@emotion/styled';
 import imagen from './cryptomonedas.png';
 import Formulario from './componentes/Formulario';
+import Cotizacion from './componentes/Cotizacion';
+import Spinner from './componentes/Spinner';
 import axios from 'axios';
 
  const Contenedor =  styled.div`
@@ -40,6 +42,8 @@ import axios from 'axios';
 function App() {
   const [moneda, guardarMoneda] = useState('');
   const [criptomoneda, guardaCriptomoneda] = useState("");
+  const [resultado, guardarResultado] = useState({});
+  const [cargando, guardarCargando] = useState(false);
 
   useEffect(() => {
 
@@ -52,21 +56,31 @@ function App() {
 
       const resultado = await axios.get(url);
 
-      console.log(resultado.data.DISPLAY[criptomoneda][moneda]); //con las variables dentro de los corchetes vamos a poder acceder dinamicamente a la respuesta del API
+      //mostar spinner
+      guardarCargando(true);
+      
+      //ocultar spinner y mostrar resultado
+      setTimeout(() => {
+        //cambiar el estado del spinner
+        guardarCargando(false);
+
+        //guardar cotización
+        guardarResultado(resultado.data.DISPLAY[criptomoneda][moneda]); //con las variables dentro de los corchetes vamos a poder acceder dinamicamente a la respuesta del API
+      },1500 );
+
+      
 
     }
     cotizarCriptomoneda();
       
   }, [moneda, criptomoneda]);
 
+  //mostrar spinnero resultado
+  const componente = (cargando) ? <Spinner/> : <Cotizacion resultado={resultado} />
+
   return (
    <Contenedor>
-      <div>
-        <Imagen
-          src={imagen}
-          alt="imagen crypto"
-        />
-      </div>
+     
       <div>
           <Heading>
               Estate al día del valor de tus cryptos
@@ -76,6 +90,14 @@ function App() {
             guardaCriptomoneda = {guardaCriptomoneda}
           />
 
+          
+      </div>
+      <div>
+        <Imagen
+          src={imagen}
+          alt="imagen crypto"
+        />
+        {componente}
       </div>
    </Contenedor>
   );

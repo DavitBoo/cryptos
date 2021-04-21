@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'; //useEffect para cuando el componente esté cargado
 import styled from '@emotion/styled';
+import PropTypes from 'prop-types';
 
 import Error from './Error';
 import useMoneda from '../hooks/useMoneda';
@@ -90,4 +91,8 @@ const Formulario = ({guardarMoneda, guardaCriptomoneda}) => {
      );
 }
  
+Formulario.protoTypes = {
+    guardaCriptomonedas: PropTypes.func.isRequired,
+    guardarMoneda: PropTypes.func.isRequired
+}
 export default Formulario;
